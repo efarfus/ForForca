@@ -1,0 +1,313 @@
+body {
+  font-family: Arial, sans-serif;
+  background: white;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+
+#desistir {
+  background-color: crimson;
+  margin-top: 20px;
+}
+
+
+
+.forca-visual {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.forca {
+  width: 100px;
+  height: 150px;
+  border-left: 4px solid black;
+  border-top: 4px solid black;
+  position: relative;
+}
+
+.cabeca {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid black;
+  position: absolute;
+  top: 30px;
+  left: -15px;
+}
+
+.boneco{
+  margin-left: 90px;
+}
+
+.corpo {
+  width: 2px;
+  height: 40px;
+  background: black;
+  position: absolute;
+  top: 65px;
+  left: 0;
+}
+
+.braco-esquerdo {
+  width: 2px;
+  height: 30px;
+  background: black;
+  position: absolute;
+  top: 60px;body {
+    font-family: Arial, sans-serif;
+    background: white;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column; /* Coloca os itens em coluna */
+  }
+  
+  #desistir {
+    background-color: crimson;
+    margin-top: 20px;
+  }
+  
+
+  
+  .forca-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza os elementos na linha */
+    margin-bottom: 20px;
+  }
+  
+  .forca {
+    width: 20%; /* Largura em porcentagem */
+    height: auto; /* Altura automática */
+    border-left: 4px solid black;
+    border-top: 4px solid black;
+    position: relative;
+  }
+  
+  .boneco {
+    margin-left: 5%; /* Margem em porcentagem */
+  }
+  
+  .cabeca {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid black;
+    position: absolute;
+    top: 30px;
+    left: -15px;
+  }
+  
+  .corpo {
+    width: 2px;
+    height: 40px;
+    background: black;
+    position: absolute;
+    top: 65px;
+    left: 0;
+  }
+  
+  .braco-esquerdo {
+    width: 2px;
+    height: 30px;
+    background: black;
+    position: absolute;
+    top: 60px;
+    left: -15px;
+    transform: rotate(45deg);
+  }
+  
+  .braco-direito {
+    width: 2px;
+    height: 30px;
+    background: black;
+    position: absolute;
+    top: 60px;
+    left: 15px;
+    transform: rotate(-45deg);
+  }
+  
+  .perna-esquerda {
+    width: 2px;
+    height: 30px;
+    background: black;
+    position: absolute;
+    top: 100px;
+    left: -10px;
+    transform: rotate(45deg);
+  }
+  
+  .perna-direita {
+    width: 2px;
+    height: 30px;
+    background: black;
+    position: absolute;
+    top: 100px;
+    left: 10px;
+  }
+  
+  .tentativas-restantes {
+    font-size: 1.2rem; /* Usar rem para escalabilidade */
+    font-weight: bold;
+    margin-bottom: 40px;
+    margin-left: 20px;
+  }
+  
+  .word {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+  }
+  
+  .letras-tentadas {
+    margin-bottom: 20px;
+  }
+  
+  .input-letter {
+    padding: 10px;
+    font-size: 1rem; /* Usar rem para escalabilidade */
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 50px; /* Largura fixa para o input */
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem; /* Usar rem para escalabilidade */
+    border: none;
+    background-color: #007bff;
+    color: white;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Adiciona uma transição suave */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .message {
+    margin-top: 15px;
+    font-size: 1rem; /* Usar rem para escalabilidade */
+    color: #d9534f;
+  }
+  
+  /* Consultas de Mídia */
+  @media (max-width: 768px) {
+    .forca {
+      width: 40%; /* Ajusta a largura da forca em telas menores */
+    }
+  
+    .cabeca {
+      width: 25px;
+      height: 25px;
+    }
+  
+    .tentativas-restantes, .word, .input-letter, .message {
+      font-size: 1rem; /* Ajusta a fonte para telas menores */
+    }
+  }
+  
+  @media (max-width: 480px) {
+
+  
+    .tentativas-restantes, .word, .input-letter, .message {
+      font-size: 0.9rem; /* Ajusta a fonte ainda mais para telas pequenas */
+    }
+  }
+  
+  left: -15px;
+  transform: rotate(45deg);
+}
+
+.braco-direito {
+  width: 2px;
+  height: 30px;
+  background: black;
+  position: absolute;
+  top: 60px;
+  left: 15px;
+  transform: rotate(-45deg);
+}
+
+.perna-esquerda {
+  width: 2px;
+  height: 30px;
+  background: black;
+  position: absolute;
+  top: 100px;
+  left: -10px;
+  transform: rotate(45deg);
+}
+
+.perna-direita {
+  width: 2px;
+  height: 30px;
+  background: black;
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  transform: rotate(-45deg);
+}
+
+.tentativas-restantes {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.word {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.letras-tentadas {
+  margin-bottom: 20px;
+}
+
+.input-letter {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #d9534f;
+}

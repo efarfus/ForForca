@@ -1,0 +1,42 @@
+/* TopBar.css */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Espaçamento interno */
+  background-color: #007bff; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  width: 100%; /* Preenche toda a largura */
+  position: fixed; /* Fixa no topo */
+  top: 0; /* No topo da página */
+  left: 0; /* Alinhado à esquerda */
+  z-index: 1000; /* Coloca a barra acima de outros elementos */
+}
+
+.logo {
+  font-size: 24px; /* Tamanho da fonte */
+}
+
+.icons {
+  display: flex;
+  gap: 10px; /* Espaço entre os ícones */
+}
+
+.top-bar-icons {
+    display: flex;
+    gap: 10px; /* Espaço entre os ícones */
+  }
+  
+  .icon {
+    width: 24px; /* Largura dos ícones */
+    height: 24px; /* Altura dos ícones */
+    margin-right: 10px;
+    border-radius: 50%; /* Deixa os ícones arredondados */
+    font-size: 20px; /* Tamanho dos ícones */
+    cursor: pointer; /* Cursor de pointer ao passar o mouse */
+    /* Adicione aqui outras propriedades para os ícones, como cor ou tamanho */
+  }
+  .icon3{
+    margin-right: 40px;
+
+  }
