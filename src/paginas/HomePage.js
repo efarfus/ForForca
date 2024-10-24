@@ -119,7 +119,6 @@ const App = () => {
             setGameOver(true); // Fim de jogo
             setMensagem(""); // Limpa a mensagem de erro ao desistir
             setMensagem(`Você perdeu! A palavra era "${palavra}".`);
-
           }}
       >
         {gameOver ? "Tentar novamente" : "Desistir desta palavra"}

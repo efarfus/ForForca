@@ -13,9 +13,17 @@
   z-index: 1000; /* Coloca a barra acima de outros elementos */
 }
 
-.logo {
-  font-size: 24px; /* Tamanho da fonte */
+.logo-link {
+  text-decoration: none; /* Remove o sublinhado */
+  color: inherit;        /* Usa a cor do texto do elemento pai */
 }
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;          /* Define a cor desejada para o texto */
+}
+
 
 .icons {
   display: flex;
