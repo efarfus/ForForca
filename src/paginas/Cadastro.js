@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import TopBar from '../components/topbar';
+import firebaseApp from '../firebase'; // Importando a instância do Firebase
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -17,25 +18,25 @@ const Register = () => {
       return;
     }
 
-    try {
-      const response = await axios.post("blog/api/v1/rest/register", {
-        username,
-        email,
-        password,
-      });
+    const auth = getAuth(firebaseApp); // Obtendo a instância do Firebase Auth
 
-      console.log('Usuário registrado:', response.data);
+    try {
+      // Criar usuário com email e senha
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      console.log('Usuário registrado:', user);
       alert('Cadastro realizado com sucesso!');
       // Redirecionar para outra página ou limpar o formulário, conforme necessário
     } catch (err) {
       console.error('Erro ao registrar:', err);
-      setError('Erro ao registrar o usuário.');
+      setError('Erro ao registrar o usuário: ' + err.message);
     }
   };
 
   return (
     <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
-        <TopBar /> {/* Adicionando a TopBar */}
+      <TopBar /> {/* Adicionando a TopBar */}
 
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit}>
@@ -85,7 +86,7 @@ const Register = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', marginTop: '5px', marginBottom:'15px'}}
+            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           />
         </div>
 

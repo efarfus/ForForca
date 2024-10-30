@@ -46,7 +46,7 @@ const Login = () => {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop:'30px'}}>
-          <button type="submit" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }}>Entrar</button>
+          <button type="submit" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }} onClick={() => navigate('/main')}>Entrar</button>
           <button type="button" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }} onClick={() => navigate('/cadastro')}>Cadastrar</button>
         </div>
       </form>
