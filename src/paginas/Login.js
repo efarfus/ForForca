@@ -1,26 +1,46 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import TopBar from "../components/topbar"; // Importando o componente TopBar
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    const auth = getAuth(); // Obtendo a instância do Firebase Auth
+
+    try {
+      // Realizar login com email e senha
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('Usuário logado com sucesso');
+      navigate('/main'); // Redirecionar para a página principal após o login
+    } catch (err) {
+      console.error('Erro ao fazer login:', err);
+      
+      // Definindo mensagens amigáveis para os erros comuns de autenticação
+      if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+        setError('Email ou senha incorretos. Tente novamente.');
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Formato de email inválido. Verifique o email inserido.');
+      } else {
+        setError('Erro ao fazer login. Tente novamente');
+      }
+    }
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <TopBar /> {/* Adicionando a TopBar */}
-
+      
       <form onSubmit={handleSubmit} style={{ width: '300px', textAlign: 'center' }}>
         <h2>Login</h2>
-        
+        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Exibe o erro, se houver */}
+
         <div style={{ marginBottom: '15px' }}>
           <label htmlFor="email">Email:</label>
           <input
@@ -46,7 +66,7 @@ const Login = () => {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop:'30px'}}>
-          <button type="submit" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }} onClick={() => navigate('/main')}>Entrar</button>
+          <button type="submit" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }}>Entrar</button>
           <button type="button" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }} onClick={() => navigate('/cadastro')}>Cadastrar</button>
         </div>
       </form>

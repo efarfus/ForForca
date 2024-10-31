@@ -1,44 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../leaderboard.css'; // Importação do CSS
 import TopBar from '../components/topbar';
+import { getDatabase, ref, get } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
 
 const LeaderBoard = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
+  const auth = getAuth();
+  const database = getDatabase();
 
   useEffect(() => {
-    const exampleData = [
-      { username: 'jogador1', acertos: 10, desistencias: 2 },
-      { username: 'jogador2', acertos: 15, desistencias: 3 },
-      { username: 'jogador3', acertos: 8, desistencias: 1 },
-      { username: 'jogador4', acertos: 20, desistencias: 0 },
-      { username: 'jogador5', acertos: 12, desistencias: 4 },
-      { username: 'jogador6', acertos: 11, desistencias: 2 },
-      { username: 'jogador7', acertos: 14, desistencias: 5 },
-      { username: 'jogador8', acertos: 9, desistencias: 1 },
-      { username: 'jogador9', acertos: 13, desistencias: 2 },
-      { username: 'jogador10', acertos: 18, desistencias: 3 },
-      { username: 'jogador11', acertos: 7, desistencias: 2 },
-      { username: 'jogador12', acertos: 16, desistencias: 1 },
-      // Dados adicionais...
-    ];
-
-    const fetchLeaderboardData = async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        // const response = await axios.get('firebase'); // Habilitar quando o backend estiver pronto
-        setData(exampleData.sort((a, b) => b.acertos - a.acertos)); // Ordena antes de setar os dados
-      } catch (err) {
-        setError("Erro ao carregar a leaderboard");
-        console.error(err);
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const userRef = ref(database, `users/${user.uid}`);
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            // Limpe o estado anterior e adicione apenas os dados do usuário atual
+            setData([userData]); // Define apenas o usuário atual
+          } else {
+            setError("Usuário não encontrado.");
+          }
+        } catch (err) {
+          setError("Erro ao carregar os dados do usuário.");
+          console.error(err);
+        }
+      } else {
+        setError("Usuário não autenticado.");
       }
     };
 
-    fetchLeaderboardData();
-  }, []);
+    fetchUserData();
+  }, [auth, database]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -76,7 +74,7 @@ const LeaderBoard = () => {
             {currentData.map((user, index) => (
               <tr key={index}>
                 <td>{user.username}</td>
-                <td>{user.acertos}</td>
+                <td>{user.vitorias}</td>
                 <td>{user.desistencias}</td>
               </tr>
             ))}

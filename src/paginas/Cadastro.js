@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, set } from 'firebase/database'; // Importar o Realtime Database
 import TopBar from '../components/topbar';
-import firebaseApp from '../firebase'; // Importando a instância do Firebase
+import firebaseApp from '../firebase';
+import User from '../models/User';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +13,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,16 +23,29 @@ const Register = () => {
       return;
     }
 
-    const auth = getAuth(firebaseApp); // Obtendo a instância do Firebase Auth
+    const auth = getAuth(firebaseApp);
+    const db = getDatabase(firebaseApp); // Instância do Realtime Database
 
     try {
-      // Criar usuário com email e senha
+      // Criar usuário com email e senha no Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      const firebaseUser = userCredential.user;
 
-      console.log('Usuário registrado:', user);
+      // Criar uma instância da classe User com os dados do usuário
+      const newUser = new User(firebaseUser.uid, username, email, password, 0, 0);
+
+      // Salvar a instância de User no Realtime Database em uma referência chamada "users"
+      await set(ref(db, 'users/' + firebaseUser.uid), newUser.toJSON());
+
+      console.log('Usuário registrado e salvo no Realtime Database:', newUser);
       alert('Cadastro realizado com sucesso!');
-      // Redirecionar para outra página ou limpar o formulário, conforme necessário
+      
+      // Limpar o formulário ou redirecionar o usuário, conforme necessário
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      navigate('/');
     } catch (err) {
       console.error('Erro ao registrar:', err);
       setError('Erro ao registrar o usuário: ' + err.message);
@@ -36,7 +54,7 @@ const Register = () => {
 
   return (
     <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
-      <TopBar /> {/* Adicionando a TopBar */}
+      <TopBar />
 
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit}>
@@ -90,7 +108,9 @@ const Register = () => {
           />
         </div>
 
-        <button type="submit" style={{ width: '100%', padding: '10px', fontSize: '16px', marginLeft:'10px'}}>Cadastrar</button>
+        <button type="submit" style={{ width: '100%', padding: '10px', fontSize: '16px' }}>
+          Cadastrar
+        </button>
       </form>
     </div>
   );

@@ -1,57 +1,70 @@
 import React, { useState, useRef, useEffect } from "react";
 import palavras from "../palavras";
-import TopBar from "../components/topbar"; // Importando o componente TopBar
-import "../App.css"; // Verifique se o arquivo App.css está na mesma pasta que App.js
+import TopBar from "../components/topbar";
+import "../App.css";
+import { getDatabase, ref, update, get } from "firebase/database"; 
+import { getAuth } from "firebase/auth";
 
 const App = () => {
   const [palavra, setPalavra] = useState("");
   const [tentativas, setTentativas] = useState(6);
   const [letrasTentadas, setLetrasTentadas] = useState([]);
   const [mensagem, setMensagem] = useState("");
-  const [gameOver, setGameOver] = useState(false); // Controle do estado do jogo
-  const inputRef = useRef(null); // Ref para o input
+  const [gameOver, setGameOver] = useState(false);
+  const inputRef = useRef(null);
+  const auth = getAuth();
+  const database = getDatabase();
 
   const escolherPalavraAleatoria = () => {
     const indexAleatorio = Math.floor(Math.random() * palavras.length);
     return palavras[indexAleatorio];
   };
 
-  // Inicializa o jogo com uma palavra aleatória
   useEffect(() => {
     setPalavra(escolherPalavraAleatoria());
   }, []);
 
+  const atualizarDadosUsuario = (campo) => {
+    const user = auth.currentUser;
+    if (user) {
+      const userRef = ref(database, `users/${user.uid}`);
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          const novoValor = campo === 'vitorias' ? (userData.vitorias || 0) + 1 : (userData.desistencias || 0) + 1;
+          update(userRef, {
+            [campo]: novoValor,
+          });
+        }
+      });
+    }
+  };
+
   const handleTentativa = () => {
     const letra = inputRef.current.value.toLowerCase();
-    inputRef.current.value = ""; // Limpa o input
-  
+    inputRef.current.value = "";
+
     if (letrasTentadas.includes(letra) || letra.length === 0) {
       setMensagem("Você já tentou essa letra ou não digitou nada!");
       return;
     }
-  
+
     setLetrasTentadas((prev) => [...prev, letra]);
-  
+
     if (!palavra.includes(letra)) {
       setTentativas((prev) => prev - 1);
       if (tentativas - 1 === 0) {
         setMensagem(`Você perdeu! A palavra era "${palavra}".`);
-        setGameOver(true); // Fim de jogo
+        setGameOver(true);
       } else {
-        if (!gameOver && tentativas > 0) {
-          setMensagem("Letra incorreta! Tente outra.");
-        }
+        setMensagem("Letra incorreta! Tente outra.");
       }
     } else {
-      const palavraOculta = palavra
-        .split("")
-        .every((l) => letrasTentadas.includes(l) || l === letra);
+      const palavraOculta = palavra.split("").every((l) => letrasTentadas.includes(l) || l === letra);
       if (palavraOculta) {
         setMensagem(`Parabéns! Você adivinhou a palavra: "${palavra}".`);
-        setGameOver(true); // Fim de jogo
-        setMensagem(""); // Limpa a mensagem de erro no game over
-      } else {
-        setMensagem("Boa! Você acertou uma letra.");
+        setGameOver(true);
+        atualizarDadosUsuario("vitorias");
       }
     }
   };
@@ -59,9 +72,15 @@ const App = () => {
   const handleReset = () => {
     setTentativas(6);
     setLetrasTentadas([]);
-    setMensagem(""); // Limpa a mensagem
+    setMensagem(""); 
     setGameOver(false);
     setPalavra(escolherPalavraAleatoria());
+  };
+
+  const handleDesistir = () => {
+    setGameOver(true);
+    setMensagem(`Você perdeu! A palavra era "${palavra}".`);
+    atualizarDadosUsuario("desistencias"); // Atualiza desistência
   };
 
   const palavraOculta = palavra
@@ -71,24 +90,24 @@ const App = () => {
 
   return (
     <div className="game-container">
-        <TopBar /> {/* Adicionando a TopBar */}
+      <TopBar />
 
       <p className="tentativas-restantes">
         Tentativas restantes: <span>{tentativas}</span>
       </p>
 
       {!gameOver && tentativas > 0 && (
-      <div className="forca-visual">
-        {/* Visual da forca */}
-        <div className="forca">
-          {tentativas < 6 && <div className="cabeca boneco"></div>}
-          {tentativas < 5 && <div className="corpo boneco"></div>}
-          {tentativas < 4 && <div className="braco-esquerdo boneco"></div>}
-          {tentativas < 3 && <div className="braco-direito boneco"></div>}
-          {tentativas < 2 && <div className="perna-esquerda boneco"></div>}
-          {tentativas < 1 && <div className="perna-direita boneco"></div>}
+        <div className="forca-visual">
+          <div className="forca">
+            {tentativas < 6 && <div className="cabeca boneco"></div>}
+            {tentativas < 5 && <div className="corpo boneco"></div>}
+            {tentativas < 4 && <div className="braco-esquerdo boneco"></div>}
+            {tentativas < 3 && <div className="braco-direito boneco"></div>}
+            {tentativas < 2 && <div className="perna-esquerda boneco"></div>}
+            {tentativas < 1 && <div className="perna-direita boneco"></div>}
+          </div>
         </div>
-      </div>)}
+      )}
 
       <p className="word">{palavraOculta}</p>
       <p className="letras-tentadas">
@@ -105,7 +124,7 @@ const App = () => {
             className="input-letter"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleTentativa(); // Chama a função de tentativa quando "Enter" for pressionado
+                handleTentativa();
               }
             }}
           />
@@ -115,11 +134,11 @@ const App = () => {
 
       <button
         id={!gameOver ? "desistir" : null}
-        onClick={gameOver ? handleReset : () => {
-            setGameOver(true); // Fim de jogo
-            setMensagem(""); // Limpa a mensagem de erro ao desistir
-            setMensagem(`Você perdeu! A palavra era "${palavra}".`);
-          }}
+        onClick={
+          gameOver
+            ? handleReset
+            : handleDesistir // Atualiza desistência se o jogador desistir
+        }
       >
         {gameOver ? "Tentar novamente" : "Desistir desta palavra"}
       </button>
