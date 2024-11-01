@@ -16,12 +16,17 @@ const Login = () => {
 
     try {
       // Realizar login com email e senha
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('Usuário logado com sucesso');
-      navigate('/main'); // Redirecionar para a página principal após o login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user; // Obtenha o usuário autenticado
+
+      // Salva o usuário no localStorage
+      localStorage.setItem("User", JSON.stringify(user));
+
+      // Redireciona para a página principal após o login
+      navigate('/main');
     } catch (err) {
       console.error('Erro ao fazer login:', err);
-      
+
       // Definindo mensagens amigáveis para os erros comuns de autenticação
       if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
         setError('Email ou senha incorretos. Tente novamente.');
@@ -65,9 +70,9 @@ const Login = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop:'30px'}}>
-          <button type="submit" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }}>Entrar</button>
-          <button type="button" style={{ padding: '10px', fontSize: '16px', marginLeft: "25px" }} onClick={() => navigate('/cadastro')}>Cadastrar</button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '30px' }}>
+          <button type="submit" style={{ padding: '10px', fontSize: '16px', marginLeft: '25px' }}>Entrar</button>
+          <button type="button" style={{ padding: '10px', fontSize: '16px', marginLeft: '25px' }} onClick={() => navigate('/cadastro')}>Cadastrar</button>
         </div>
       </form>
     </div>

@@ -14,6 +14,7 @@ const TopBar = () => {
   const handleLogout = async () => {
     try {
       await auth.signOut(); // Faz o logout do usuário
+      localStorage.removeItem("User");
       navigate("/",{ replace: true }); // Redireciona para a página inicial ou de login
     } catch (error) {
       console.error("Erro ao fazer logout:", error); // Trate o erro de logout se necessário
@@ -22,7 +23,7 @@ const TopBar = () => {
 
   return (
     <header className="top-bar">
-      <Link to={"/"} className="logo-link">
+      <Link to={"/main"} className="logo-link">
         <h1 className="logo">ForForca</h1>
       </Link>
       <div className="icons">

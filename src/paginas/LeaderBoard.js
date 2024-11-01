@@ -14,29 +14,28 @@ const LeaderBoard = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        try {
-          const userRef = ref(database, `users/${user.uid}`);
-          const snapshot = await get(userRef);
-          if (snapshot.exists()) {
-            const userData = snapshot.val();
-            // Limpe o estado anterior e adicione apenas os dados do usuário atual
-            setData([userData]); // Define apenas o usuário atual
-          } else {
-            setError("Usuário não encontrado.");
-          }
-        } catch (err) {
-          setError("Erro ao carregar os dados do usuário.");
-          console.error(err);
+      try {
+        const usersRef = ref(database, 'users'); // Referência para todos os usuários
+        const snapshot = await get(usersRef);
+        if (snapshot.exists()) {
+          const usersData = snapshot.val();
+          const usersArray = Object.values(usersData); // Converte o objeto em um array
+
+          // Ordena os usuários com base nas vitórias
+          usersArray.sort((a, b) => b.vitorias - a.vitorias);
+
+          setData(usersArray); // Define os dados de todos os usuários
+        } else {
+          setError("Nenhum usuário encontrado.");
         }
-      } else {
-        setError("Usuário não autenticado.");
+      } catch (err) {
+        setError("Erro ao carregar os dados dos usuários.");
+        console.error(err);
       }
     };
 
     fetchUserData();
-  }, [auth, database]);
+  }, [database]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
