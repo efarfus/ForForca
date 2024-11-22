@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import ApiService from '../apiService';
 import TopBar from "../components/topbar"; // Importando o componente TopBar
 
 const Login = () => {
@@ -12,12 +12,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const auth = getAuth(); // Obtendo a instância do Firebase Auth
-
     try {
-      // Realizar login com email e senha
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user; // Obtenha o usuário autenticado
+      const user = await ApiService.login(email, password); // Chama a função de login do ApiService
 
       // Salva o usuário no localStorage
       localStorage.setItem("User", JSON.stringify(user));

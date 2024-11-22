@@ -1,42 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import '../leaderboard.css'; // Importação do CSS
 import TopBar from '../components/topbar';
-import { getDatabase, ref, get } from 'firebase/database';
-import { getAuth } from 'firebase/auth';
+import ApiService from '../apiService'; // Importando o ApiService
 
 const LeaderBoard = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
-  const auth = getAuth();
-  const database = getDatabase();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const usersRef = ref(database, 'users'); // Referência para todos os usuários
-        const snapshot = await get(usersRef);
-        if (snapshot.exists()) {
-          const usersData = snapshot.val();
-          const usersArray = Object.values(usersData); // Converte o objeto em um array
-
-          // Ordena os usuários com base nas vitórias
-          usersArray.sort((a, b) => b.vitorias - a.vitorias);
-
-          setData(usersArray); // Define os dados de todos os usuários
-        } else {
-          setError("Nenhum usuário encontrado.");
-        }
+        const usersArray = await ApiService.fetchUsers(); // Chamando a função do ApiService
+        setData(usersArray);
       } catch (err) {
-        setError("Erro ao carregar os dados dos usuários.");
-        console.error(err);
+        setError(err.message); // Lida com o erro vindo do ApiService
       }
     };
 
     fetchUserData();
-  }, [database]);
+  }, []);
 
+  // Função de paginação
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentData = data.slice(indexOfFirstItem, indexOfLastItem);

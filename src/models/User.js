@@ -9,7 +9,7 @@ class User {
       this.senha = senha
       this.vitorias = vitorias
       this.desistencias = desistencias
-    }
+    } 
   
     // Método para converter a instância em um objeto que pode ser armazenado no Firebase
     toJSON() {

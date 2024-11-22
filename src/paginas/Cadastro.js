@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database'; // Importar o Realtime Database
+import ApiService from '../apiService'; // Importando o ApiService
 import TopBar from '../components/topbar';
-import firebaseApp from '../firebase';
-import User from '../models/User';
 import { useNavigate } from 'react-router-dom';
-
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -18,26 +14,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError("As senhas não coincidem.");
-      return;
-    }
-
-    const auth = getAuth(firebaseApp);
-    const db = getDatabase(firebaseApp); // Instância do Realtime Database
-
     try {
-      // Criar usuário com email e senha no Firebase Authentication
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const firebaseUser = userCredential.user;
+      // Usando o ApiService para registrar o usuário
+      await ApiService.registerUser(username, email, password, confirmPassword);
 
-      // Criar uma instância da classe User com os dados do usuário
-      const newUser = new User(firebaseUser.uid, username, email, password, 0, 0);
-
-      // Salvar a instância de User no Realtime Database em uma referência chamada "users"
-      await set(ref(db, 'users/' + firebaseUser.uid), newUser.toJSON());
-
-      console.log('Usuário registrado e salvo no Realtime Database:', newUser);
+      console.log('Usuário registrado com sucesso!');
       alert('Cadastro realizado com sucesso!');
       
       // Limpar o formulário ou redirecionar o usuário, conforme necessário
@@ -48,7 +29,7 @@ const Register = () => {
       navigate('/');
     } catch (err) {
       console.error('Erro ao registrar:', err);
-      setError('Erro ao registrar o usuário: ' + err.message);
+      setError(err.message); // Exibe a mensagem de erro
     }
   };
 

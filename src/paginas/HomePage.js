@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import palavras from "../palavras";
 import TopBar from "../components/topbar";
 import "../App.css";
+import apiService from "../apiService"
 import { getDatabase, ref, update, get } from "firebase/database"; 
 import { getAuth } from "firebase/auth";
 
@@ -24,21 +25,7 @@ const App = () => {
     setPalavra(escolherPalavraAleatoria());
   }, []);
 
-  const atualizarDadosUsuario = (campo) => {
-    const user = auth.currentUser;
-    if (user) {
-      const userRef = ref(database, `users/${user.uid}`);
-      get(userRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          const userData = snapshot.val();
-          const novoValor = campo === 'vitorias' ? (userData.vitorias || 0) + 1 : (userData.desistencias || 0) + 1;
-          update(userRef, {
-            [campo]: novoValor,
-          });
-        }
-      });
-    }
-  };
+ 
 
   const handleTentativa = () => {
     const letra = inputRef.current.value.toLowerCase();
@@ -64,7 +51,7 @@ const App = () => {
       if (palavraOculta) {
         setMensagem(`Parabéns! Você adivinhou a palavra: "${palavra}".`);
         setGameOver(true);
-        atualizarDadosUsuario("vitorias");
+        apiService.atualizarDadosUsuario("vitorias");
       }
     }
   };
@@ -80,7 +67,7 @@ const App = () => {
   const handleDesistir = () => {
     setGameOver(true);
     setMensagem(`Você perdeu! A palavra era "${palavra}".`);
-    atualizarDadosUsuario("desistencias"); // Atualiza desistência
+    apiService.atualizarDadosUsuario("desistencias"); // Atualiza desistência
   };
 
   const palavraOculta = palavra
