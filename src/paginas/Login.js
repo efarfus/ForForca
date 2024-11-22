@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../apiService';
-import TopBar from "../components/topbar"; // Importando o componente TopBar
+import TopBar from "../components/topbar"; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,17 +13,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const user = await ApiService.login(email, password); // Chama a função de login do ApiService
-
-      // Salva o usuário no localStorage
+      const user = await ApiService.login(email, password); 
       localStorage.setItem("User", JSON.stringify(user));
-
-      // Redireciona para a página principal após o login
       navigate('/main');
     } catch (err) {
       console.error('Erro ao fazer login:', err);
 
-      // Definindo mensagens amigáveis para os erros comuns de autenticação
+      
       if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
         setError('Email ou senha incorretos. Tente novamente.');
       } else if (err.code === 'auth/invalid-email') {
