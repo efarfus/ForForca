@@ -1,4 +1,4 @@
-/* Estilização específica para a tabela LeaderBoard */
+
 .leaderboard-container {
     margin: 0 auto;
     max-width: 800px;
@@ -55,17 +55,17 @@
   }
   
   .arrow-button:hover {
-    color: #007bff; /* Cor ao passar o mouse */
+    color: #007bff;
   }
   .leaderboard-table {
-    width: 100%; /* Para garantir que a tabela use toda a largura disponível */
-    border-collapse: collapse; /* Para uma aparência mais limpa */
+    width: 100%;
+    border-collapse: collapse;
   }
   
   .leaderboard-table th, 
   .leaderboard-table td {
-    text-align: center; /* Centraliza o texto */
-    padding: 10px; /* Adiciona espaçamento interno */
-    border: 1px solid #ddd; /* Adiciona uma borda leve */
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
   }
   

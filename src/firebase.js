@@ -10,8 +10,8 @@ const firebaseConfig = {
   projectId: "forforca-a639b",
   storageBucket: "forforca-a639b.appspot.com",
   messagingSenderId: "504446342093",
-  databaseURL: "https://forforca-a639b-default-rtdb.firebaseio.com/", 
-  appId: "1:504446342093:web:e5deb39c02fad6544aea84"
+  databaseURL: "https://forforca-a639b-default-rtdb.firebaseio.com/",
+  appId: "1:504446342093:web:e5deb39c02fad6544aea84",
 };
 
 // Initialize Firebase

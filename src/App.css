@@ -74,7 +74,7 @@ body {
     text-align: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column; /* Coloca os itens em coluna */
+    flex-direction: column;
   }
   
   #desistir {
@@ -87,20 +87,20 @@ body {
   .forca-visual {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centraliza os elementos na linha */
+    justify-content: center;
     margin-bottom: 20px;
   }
   
   .forca {
-    width: 20%; /* Largura em porcentagem */
-    height: auto; /* Altura automática */
+    width: 20%;
+    height: auto;
     border-left: 4px solid black;
     border-top: 4px solid black;
     position: relative;
   }
   
   .boneco {
-    margin-left: 5%; /* Margem em porcentagem */
+    margin-left: 5%;
   }
   
   .cabeca {
@@ -162,7 +162,7 @@ body {
   }
   
   .tentativas-restantes {
-    font-size: 1.2rem; /* Usar rem para escalabilidade */
+    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 40px;
     margin-left: 20px;
@@ -180,23 +180,23 @@ body {
   
   .input-letter {
     padding: 10px;
-    font-size: 1rem; /* Usar rem para escalabilidade */
+    font-size: 1rem;
     border: 2px solid #007bff;
     border-radius: 4px;
     margin-right: 10px;
-    width: 50px; /* Largura fixa para o input */
+    width: 50px;
   }
   
   button {
     padding: 10px 20px;
-    font-size: 1rem; /* Usar rem para escalabilidade */
+    font-size: 1rem;
     border: none;
     background-color: #007bff;
     color: white;
     margin: 5px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Adiciona uma transição suave */
+    transition: background-color 0.3s;
   }
   
   button:hover {
@@ -205,14 +205,14 @@ body {
   
   .message {
     margin-top: 15px;
-    font-size: 1rem; /* Usar rem para escalabilidade */
+    font-size: 1rem;
     color: #d9534f;
   }
   
-  /* Consultas de Mídia */
+ 
   @media (max-width: 768px) {
     .forca {
-      width: 40%; /* Ajusta a largura da forca em telas menores */
+      width: 40%;
     }
   
     .cabeca {
@@ -221,7 +221,7 @@ body {
     }
   
     .tentativas-restantes, .word, .input-letter, .message {
-      font-size: 1rem; /* Ajusta a fonte para telas menores */
+      font-size: 1rem;
     }
   }
   
@@ -229,7 +229,7 @@ body {
 
   
     .tentativas-restantes, .word, .input-letter, .message {
-      font-size: 0.9rem; /* Ajusta a fonte ainda mais para telas pequenas */
+      font-size: 0.9rem;
     }
   }
   

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ApiService from '../apiService'; // Importando o ApiService
+import ApiService from '../apiService'; 
 import TopBar from '../components/topbar';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,13 +15,13 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      // Usando o ApiService para registrar o usuário
+      
       await ApiService.registerUser(username, email, password, confirmPassword);
 
       console.log('Usuário registrado com sucesso!');
       alert('Cadastro realizado com sucesso!');
       
-      // Limpar o formulário ou redirecionar o usuário, conforme necessário
+      
       setUsername('');
       setEmail('');
       setPassword('');
@@ -29,7 +29,7 @@ const Register = () => {
       navigate('/');
     } catch (err) {
       console.error('Erro ao registrar:', err);
-      setError(err.message); // Exibe a mensagem de erro
+      setError(err.message); 
     }
   };
 

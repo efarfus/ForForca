@@ -67,7 +67,7 @@ const App = () => {
   const handleDesistir = () => {
     setGameOver(true);
     setMensagem(`Você perdeu! A palavra era "${palavra}".`);
-    apiService.atualizarDadosUsuario("desistencias"); // Atualiza desistência
+    apiService.atualizarDadosUsuario("desistencias"); 
   };
 
   const palavraOculta = palavra
@@ -124,7 +124,7 @@ const App = () => {
         onClick={
           gameOver
             ? handleReset
-            : handleDesistir // Atualiza desistência se o jogador desistir
+            : handleDesistir 
         }
       >
         {gameOver ? "Tentar novamente" : "Desistir desta palavra"}

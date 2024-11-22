@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../leaderboard.css'; // Importação do CSS
+import '../leaderboard.css'; 
 import TopBar from '../components/topbar';
-import ApiService from '../apiService'; // Importando o ApiService
+import ApiService from '../apiService'; 
 
 const LeaderBoard = () => {
   const [data, setData] = useState([]);
@@ -12,17 +12,17 @@ const LeaderBoard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const usersArray = await ApiService.fetchUsers(); // Chamando a função do ApiService
+        const usersArray = await ApiService.fetchUsers(); 
         setData(usersArray);
       } catch (err) {
-        setError(err.message); // Lida com o erro vindo do ApiService
+        setError(err.message); 
       }
     };
 
     fetchUserData();
   }, []);
 
-  // Função de paginação
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
