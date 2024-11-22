@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import palavras from "../palavras";
 import TopBar from "../components/topbar";
 import "../App.css";
-import apiService from "../apiService"
-import { getDatabase, ref, update, get } from "firebase/database"; 
+import apiService from "../apiService";
+import { getDatabase, ref, update, get } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const App = () => {
@@ -25,8 +25,6 @@ const App = () => {
     setPalavra(escolherPalavraAleatoria());
   }, []);
 
- 
-
   const handleTentativa = () => {
     const letra = inputRef.current.value.toLowerCase();
     inputRef.current.value = "";
@@ -47,7 +45,9 @@ const App = () => {
         setMensagem("Letra incorreta! Tente outra.");
       }
     } else {
-      const palavraOculta = palavra.split("").every((l) => letrasTentadas.includes(l) || l === letra);
+      const palavraOculta = palavra
+        .split("")
+        .every((l) => letrasTentadas.includes(l) || l === letra);
       if (palavraOculta) {
         setMensagem(`Parabéns! Você adivinhou a palavra: "${palavra}".`);
         setGameOver(true);
@@ -59,7 +59,7 @@ const App = () => {
   const handleReset = () => {
     setTentativas(6);
     setLetrasTentadas([]);
-    setMensagem(""); 
+    setMensagem("");
     setGameOver(false);
     setPalavra(escolherPalavraAleatoria());
   };
@@ -67,7 +67,7 @@ const App = () => {
   const handleDesistir = () => {
     setGameOver(true);
     setMensagem(`Você perdeu! A palavra era "${palavra}".`);
-    apiService.atualizarDadosUsuario("desistencias"); 
+    apiService.atualizarDadosUsuario("desistencias");
   };
 
   const palavraOculta = palavra
@@ -121,11 +121,7 @@ const App = () => {
 
       <button
         id={!gameOver ? "desistir" : null}
-        onClick={
-          gameOver
-            ? handleReset
-            : handleDesistir 
-        }
+        onClick={gameOver ? handleReset : handleDesistir}
       >
         {gameOver ? "Tentar novamente" : "Desistir desta palavra"}
       </button>

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import HomePage from './paginas/HomePage';
-import NotFound from './paginas/NotFound';
-import Cadastro from './paginas/Cadastro';
-import Ajuda from './paginas/Ajuda';
-import Login from './paginas/Login';
-import LeaderBoard from './paginas/LeaderBoard';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./paginas/HomePage";
+import NotFound from "./paginas/NotFound";
+import Cadastro from "./paginas/Cadastro";
+import Ajuda from "./paginas/Ajuda";
+import Login from "./paginas/Login";
+import LeaderBoard from "./paginas/LeaderBoard";
 
 const AppRouter = () => {
   return (

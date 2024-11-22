@@ -11,12 +11,10 @@ function Botao() {
     setCountStateB(countStateB + 1);
   }
 
-  // 1 - utilização
   React.useEffect(function () {
     console.log("Roda a cada renderização do componente");
   });
 
-  // 2 - array de dependencias
   React.useEffect(
     function () {
       console.log("Roda quando o Count State A é alterado");
@@ -24,7 +22,6 @@ function Botao() {
     [countStateA]
   );
 
-  // 3 - array de dependencias vazio
   React.useEffect(function () {
     console.log("Só executa uma vez quando o componente é renderizado");
   }, []);

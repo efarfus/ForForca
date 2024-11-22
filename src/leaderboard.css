@@ -1,71 +1,69 @@
-
 .leaderboard-container {
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .leaderboard-table, 
-  .leaderboard-table th, 
-  .leaderboard-table td {
-    border: 1px solid #ddd;
-  }
-  
-  .leaderboard-table th, 
-  .leaderboard-table td {
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .leaderboard-table th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-  }
-  
-  .leaderboard-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .leaderboard-table tr:hover {
-    background-color: #ddd;
-  }
-  
-  .leaderboard-title {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
 
-  .arrow-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    color: #333;
-    transition: color 0.3s;
-  }
-  
-  .arrow-button:hover {
-    color: #007bff;
-  }
-  .leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .leaderboard-table th, 
-  .leaderboard-table td {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.leaderboard-table,
+.leaderboard-table th,
+.leaderboard-table td {
+  border: 1px solid #ddd;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.leaderboard-table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.leaderboard-table tr:hover {
+  background-color: #ddd;
+}
+
+.leaderboard-title {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.arrow-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.arrow-button:hover {
+  color: #007bff;
+}
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}

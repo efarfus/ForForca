@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import '../leaderboard.css'; 
-import TopBar from '../components/topbar';
-import ApiService from '../apiService'; 
+import React, { useState, useEffect } from "react";
+import "../leaderboard.css";
+import TopBar from "../components/topbar";
+import ApiService from "../apiService";
 
 const LeaderBoard = () => {
   const [data, setData] = useState([]);
@@ -12,17 +12,16 @@ const LeaderBoard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const usersArray = await ApiService.fetchUsers(); 
+        const usersArray = await ApiService.fetchUsers();
         setData(usersArray);
       } catch (err) {
-        setError(err.message); 
+        setError(err.message);
       }
     };
 
     fetchUserData();
   }, []);
 
-  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentData = data.slice(indexOfFirstItem, indexOfLastItem);

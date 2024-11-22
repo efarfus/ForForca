@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import ApiService from '../apiService'; 
-import TopBar from '../components/topbar';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import ApiService from "../apiService";
+import TopBar from "../components/topbar";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -15,33 +15,31 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      
       await ApiService.registerUser(username, email, password, confirmPassword);
 
-      console.log('Usuário registrado com sucesso!');
-      alert('Cadastro realizado com sucesso!');
-      
-      
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      navigate('/');
+      console.log("Usuário registrado com sucesso!");
+      alert("Cadastro realizado com sucesso!");
+
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      navigate("/");
     } catch (err) {
-      console.error('Erro ao registrar:', err);
-      setError(err.message); 
+      console.error("Erro ao registrar:", err);
+      setError(err.message);
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}>
       <TopBar />
 
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit}>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: "15px" }}>
           <label htmlFor="username">Nome de Usuário:</label>
           <input
             type="text"
@@ -49,11 +47,11 @@ const Register = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            style={{ width: "100%", padding: "8px", marginTop: "5px" }}
           />
         </div>
 
-        <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: "15px" }}>
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -61,11 +59,11 @@ const Register = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            style={{ width: "100%", padding: "8px", marginTop: "5px" }}
           />
         </div>
 
-        <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: "15px" }}>
           <label htmlFor="password">Senha:</label>
           <input
             type="password"
@@ -73,11 +71,11 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            style={{ width: "100%", padding: "8px", marginTop: "5px" }}
           />
         </div>
 
-        <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: "15px" }}>
           <label htmlFor="confirmPassword">Confirmar Senha:</label>
           <input
             type="password"
@@ -85,11 +83,14 @@ const Register = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            style={{ width: "100%", padding: "8px", marginTop: "5px" }}
           />
         </div>
 
-        <button type="submit" style={{ width: '100%', padding: '10px', fontSize: '16px' }}>
+        <button
+          type="submit"
+          style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+        >
           Cadastrar
         </button>
       </form>

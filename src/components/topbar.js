@@ -15,7 +15,7 @@ const TopBar = () => {
     try {
       await auth.signOut(); // Faz o logout do usuário
       localStorage.removeItem("User");
-      navigate("/",{ replace: true }); // Redireciona para a página inicial ou de login
+      navigate("/", { replace: true }); // Redireciona para a página inicial ou de login
     } catch (error) {
       console.error("Erro ao fazer logout:", error); // Trate o erro de logout se necessário
     }
@@ -29,7 +29,11 @@ const TopBar = () => {
       <div className="icons">
         <div className="icon icon1">
           <Link to={"/leaderboard"}>
-            <img src={medal} style={{ width: "24px", height: "24px" }} alt="Leaderboard" />
+            <img
+              src={medal}
+              style={{ width: "24px", height: "24px" }}
+              alt="Leaderboard"
+            />
           </Link>
         </div>
         <div className="icon icon2">
@@ -41,8 +45,16 @@ const TopBar = () => {
             />
           </Link>
         </div>
-        <div className="icon icon3" onClick={handleLogout} style={{ cursor: "pointer" }}>
-          <img src={logout} style={{ width: "24px", height: "24px" }} alt="Logout" />
+        <div
+          className="icon icon3"
+          onClick={handleLogout}
+          style={{ cursor: "pointer" }}
+        >
+          <img
+            src={logout}
+            style={{ width: "24px", height: "24px" }}
+            alt="Logout"
+          />
         </div>
       </div>
     </header>

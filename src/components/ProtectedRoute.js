@@ -1,7 +1,7 @@
 // ProtectedRoute.js
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 
 const ProtectedRoute = ({ element }) => {
   const auth = getAuth();
@@ -17,4 +17,3 @@ const ProtectedRoute = ({ element }) => {
 };
 
 export default ProtectedRoute;
-  
